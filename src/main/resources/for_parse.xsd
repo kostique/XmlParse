@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+           jxb:version="2.1">
+  <xs:element name="comtec-mobile-communication" type="comtec-mobile-communicationType"/>
+  <xs:complexType name="resource_kindType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="xs:string" name="resource_tag"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resource_statusType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="divisionType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="address_kindType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="plan_groupType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="plan_regionType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="plan_groupType" name="plan_group"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="day_entryType">
+    <xs:sequence>
+      <xs:element name="availability">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="closed"/>
+            <xs:enumeration value="open"/>
+            <xs:enumeration value="available"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="week_index"/>
+      <xs:element name="day_of_week">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="su"/>
+            <xs:enumeration value="mo"/>
+            <xs:enumeration value="tu"/>
+            <xs:enumeration value="we"/>
+            <xs:enumeration value="th"/>
+            <xs:enumeration value="fr"/>
+            <xs:enumeration value="sa"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="from_time">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="00:00:00"/>
+            <xs:enumeration value="09:00:00"/>
+            <xs:enumeration value="18:30:00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="till_time">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="24:00:00"/>
+            <xs:enumeration value="09:00:00"/>
+            <xs:enumeration value="18:30:00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendar_versionType">
+    <xs:sequence>
+      <xs:element name="from_date">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="2014-08-04"/>
+            <xs:enumeration value="1981-04-01"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="till_date"/>
+      <xs:element type="xs:string" name="nof_weeks"/>
+      <xs:element type="day_entryType" name="day_entry" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendar_versionsType">
+    <xs:sequence>
+      <xs:element type="calendar_versionType" name="calendar_version"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="calendarType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="timezone_code"/>
+      <xs:element type="calendar_versionsType" name="calendar_versions"/>
+      <xs:element type="xs:string" name="date_entries"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="coordinatesType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="x_coord"/>
+      <xs:element type="xs:string" name="y_coord"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="locationType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="id"/>
+      <xs:element type="coordinatesType" name="coordinates"/>
+      <xs:element type="xs:string" name="method"/>
+      <xs:element type="xs:string" name="precision"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="udfieldType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="udfieldsType">
+    <xs:sequence>
+      <xs:element type="udfieldType" name="udfield"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="addressType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="id"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="address_kindType" name="address_kind"/>
+      <xs:element type="xs:string" name="street_name"/>
+      <xs:element type="xs:string" name="door_number"/>
+      <xs:element type="xs:string" name="door_number_postfix"/>
+      <xs:element type="xs:string" name="area_description"/>
+      <xs:element type="xs:string" name="zipcode"/>
+      <xs:element type="xs:string" name="city"/>
+      <xs:element type="xs:string" name="state_name"/>
+      <xs:element type="xs:string" name="country_code"/>
+      <xs:element type="xs:string" name="timezone_code"/>
+      <xs:element type="xs:string" name="phone"/>
+      <xs:element type="xs:string" name="phone2"/>
+      <xs:element type="xs:string" name="fax"/>
+      <xs:element type="xs:string" name="email"/>
+      <xs:element type="xs:string" name="contact_person"/>
+      <xs:element type="xs:string" name="contactAddress"/>
+      <xs:element type="xs:string" name="is_depot"/>
+      <xs:element type="xs:string" name="active"/>
+      <xs:element type="xs:string" name="temporary"/>
+      <xs:element type="plan_regionType" name="plan_region"/>
+      <xs:element type="calendarType" name="calendar"/>
+      <xs:element type="xs:string" name="allowed_action_kinds"/>
+      <xs:element type="xs:string" name="not_allowed_products"/>
+      <xs:element type="xs:string" name="not_allowed_product_kinds"/>
+      <xs:element type="xs:string" name="not_allowed_resources"/>
+      <xs:element type="xs:string" name="not_allowed_resource_kinds"/>
+      <xs:element type="locationType" name="location"/>
+      <xs:element type="xs:string" name="resource_kind_turnaround_durations"/>
+      <xs:element type="xs:string" name="resource_turnaround_durations"/>
+      <xs:element type="xs:string" name="comment"/>
+      <xs:element type="udfieldsType" name="udfields"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="capabilityType">
+    <xs:sequence>
+      <xs:element name="code">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="TENT"/>
+            <xs:enumeration value="REAR_LOAD"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Тент"/>
+            <xs:enumeration value="Задняя загрузка"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="available"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="capabilitiesType">
+    <xs:sequence>
+      <xs:element type="capabilityType" name="capability" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="companyType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="resourceType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="driverId"/>
+      <xs:element type="xs:string" name="driverCode"/>
+      <xs:element type="xs:string" name="drivername"/>
+      <xs:element type="xs:string" name="id"/>
+      <xs:element type="xs:string" name="code"/>
+      <xs:element type="xs:string" name="name"/>
+      <xs:element type="resource_kindType" name="resource_kind"/>
+      <xs:element type="xs:string" name="resource_tag"/>
+      <xs:element type="resource_statusType" name="resource_status"/>
+      <xs:element type="xs:string" name="active"/>
+      <xs:element type="xs:string" name="subcontractorId"/>
+      <xs:element type="divisionType" name="division"/>
+      <xs:element type="addressType" name="address"/>
+      <xs:element type="xs:string" name="comm_code"/>
+      <xs:element type="xs:string" name="comment"/>
+      <xs:element type="capabilitiesType" name="capabilities"/>
+      <xs:element type="calendarType" name="calendar"/>
+      <xs:element type="xs:string" name="allowed_plan_regions"/>
+      <xs:element type="xs:string" name="not_allowed_addresses"/>
+      <xs:element type="xs:string" name="not_allowed_address_kinds"/>
+      <xs:element type="xs:string" name="not_allowed_products"/>
+      <xs:element type="xs:string" name="not_allowed_product_kinds"/>
+      <xs:element type="xs:string" name="not_allowed_resources"/>
+      <xs:element type="xs:string" name="not_allowed_resource_kinds"/>
+      <xs:element type="xs:string" name="not_allowed_stations"/>
+      <xs:element type="xs:string" name="not_allowed_station_kinds"/>
+      <xs:element type="xs:string" name="udfields"/>
+      <xs:element type="companyType" name="company"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id">
+      <xs:annotation>
+        <xs:appinfo>
+          <jxb:property name="idAttribute"/>
+        </xs:appinfo>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="resources">
+    <xs:sequence>
+      <xs:element type="resourceType" name="resource"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="message-outType">
+    <xs:sequence>
+      <xs:element type="resources" name="resources"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="confirmation"/>
+    <xs:attribute type="xs:string" name="priority"/>
+    <xs:attribute type="xs:string" name="timestamp"/>
+    <xs:attribute type="xs:string" name="userid"/>
+    <xs:attribute type="xs:string" name="username"/>
+  </xs:complexType>
+  <xs:complexType name="comtec-mobile-communicationType">
+    <xs:sequence>
+      <xs:element type="message-outType" name="message-out"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="version"/>
+  </xs:complexType>
+</xs:schema>
